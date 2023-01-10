@@ -7,7 +7,7 @@
 </div>
 
 
-<div class="container">
+<!-- <div class="container">
     <table class="table">
         <thead>
             <tr>
@@ -24,15 +24,34 @@
                     <td>{{ note.text}}</td>
                     <td>{{ note.type}}</td>
                     <td>
-                        <a class="btn btn-sm btn-secondary" href="{% url 'index' %}">Cancel</a>
+                        <a class="btn btn-sm btn-secondary" href="{% url 'list_view' %}">Cancel</a>
                     </td>
                     <td>
-                        <input class="btn btn-sm btn-danger" type="submit" value="Confirm Deletion" name="Confirm">
+                        
                     </td>
                 </form>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 
 
-    {% endblock content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <span>
+
+                    <strong>{{ note.text}}</strong>
+
+                    {% for tag in note.tags.all %}
+                    <small>{{ tag.tag_name }}</small>
+                    {% endfor %}
+                    <input class="btn btn-sm btn-outline-danger" type="submit" value="Confirm Deletion" name="Confirm">
+                </span>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

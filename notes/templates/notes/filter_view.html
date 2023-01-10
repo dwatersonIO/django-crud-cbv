@@ -1,0 +1,59 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1>Notes App <small class="text-muted">Filter View</small></h1>
+</div>
+<hr>
+<div class="container">
+    <form method="POST" action="/">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-sm-4">
+                {{ form.text }}
+                <input class="btn btn-sm btn-success" value="Add" type="submit" name="Create Note">
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    {% for tag in form.tags %}
+                    <div class="col-sm-2">
+                        <small>{{ tag }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<hr>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-10">
+            {% for note in notes %}
+            <div>
+                <a class="btn btn-sm btn-outline-dark" href="{% url 'update_note' note.id %}">Edit</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_note' note.id %}">Del</a>
+                <strong>{{ note.text }}</strong>
+                {{ note.date_created |date:"M j, Y"}}
+                {% for tag in note.tags.all %}
+                <small>{{ tag.tag_name }}</small>
+
+                {% endfor %}
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}
