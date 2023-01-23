@@ -65,3 +65,5 @@ class NoteDelete(DeleteView):
 	fields=['text', 'tags']
 	template_name='notes/delete_note.html'
 	success_url = '/'
+
+
